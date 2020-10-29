@@ -30,9 +30,11 @@ pipeline {
         }
         stage('Execute Image'){
           steps{
-            def customImage = docker.build("prasannakk/devops-certification:${env.BUILD_NUMBER}")
-            customImage.inside {
-              sh 'echo This is the code executing inside the container.'
+            script {
+              def customImage = docker.build("prasannakk/devops-certification:${env.BUILD_NUMBER}")
+              customImage.inside {
+                sh 'echo This is the code executing inside the container.'
+              }
             }
           }
         }

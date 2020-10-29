@@ -1,6 +1,6 @@
 pipeline {
   environment {
-    registry = "prasannakk702/devops-certification"
+    registry = "prasannakk/devops-certification"
     registryCredential = 'dockerhub'
   }
   agent any
@@ -28,14 +28,15 @@ pipeline {
             sh "docker rmi $registry:$BUILD_NUMBER"
         }
         }
+        stage('Execute Image'){
+          steps{
+            def customImage = docker.build("prasannakk/devops-certification:${env.BUILD_NUMBER}")
+            customImage.inside {
+              sh 'echo This is the code executing inside the container.'
+            }
+          }
+        }
    }   
 }
 
-node {
-    stage('Execute Image'){
-        def customImage = docker.build("prasannakk/devops-certification:${env.BUILD_NUMBER}")
-        customImage.inside {
-            sh 'echo This is the code executing inside the container.'
-        }
-    }
-}
+

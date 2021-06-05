@@ -1,4 +1,4 @@
-pipeline 
+pipeline {
   environment {
     registry = "prasannakk/devops-certification"
     registryCredential = 'dockerhub'
